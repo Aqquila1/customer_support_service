@@ -45,6 +45,8 @@ def registration():
         json_params = json.loads(getData) 
         
         #напишите прогноз и верните его в ответе в параметре 'prediction'
+        message = json_params['user_message']
+        resp['predict'] = model.predict(vec.transform([message]).toarray())
 
 
 
