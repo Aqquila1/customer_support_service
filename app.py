@@ -61,8 +61,8 @@ def registration():
         json_params = json.loads(getData) 
         
         #напишите прогноз и верните его в ответе в параметре 'prediction'
-        message = json_params['user_message']
-        category = model.predict_proba(vec.transform([processing_message(message)]).toarray()).tolist()
+        message = [json_params['user_message']]
+        category = model.predict_proba(vec.transform(processing_message(message)).toarray()).tolist()
         resp['category'] = category
 
         
