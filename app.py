@@ -21,7 +21,9 @@ application = Flask(__name__)
 
 #загружаем модели из файла
 vec = pickle.load(open("./models/tfidf.pickle", "rb"))
-model = lgb.Booster(model_file='./models/lgbm_model.txt')
+# model = lgb.Booster(model_file='./models/lgbm_model.txt')
+with open("./models/mlp_model.pkl", 'rb') as file:
+    model = pickle.load(file)
 
 
 # тестовый вывод
@@ -45,7 +47,7 @@ def registration():
         json_params = json.loads(getData) 
         
         #напишите прогноз и верните его в ответе в параметре 'prediction'
-        category = model.predict(vec.transform([json_params['user_message']]).toarray()).tolist()
+        category = model.predict_proba(vec.transform([json_params['user_message']]).toarray()).tolist()
         resp['category'] = category
 
         
