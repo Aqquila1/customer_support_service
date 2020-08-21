@@ -35,6 +35,20 @@ def hello():
     
     return response
 
+#предобработка сообщения
+def processing_message(message):
+    true_words = []
+    words = re.split(' ', message)
+    for word in words:
+        m = re.search('(\w+)', word)
+        if m is not None:
+            good_word = m.group(0)
+            true_words.append(good_word)
+    stemming = PorterStemmer()
+    stemmed_message_list = [stemming.stem(word) for word in true_words]
+    stemmed_message = ' '.join(stemmed_message_list)
+    return stemmed_message
+
 # предикт категории
 @application.route("/categoryPrediction" , methods=['GET', 'POST'])  
 def registration():
@@ -47,7 +61,8 @@ def registration():
         json_params = json.loads(getData) 
         
         #напишите прогноз и верните его в ответе в параметре 'prediction'
-        category = model.predict_proba(vec.transform([json_params['user_message']]).toarray()).tolist()
+        message = json_params['user_message']
+        category = model.predict_proba(vec.transform([processing_message(message)]).toarray()).tolist()
         resp['category'] = category
 
         
