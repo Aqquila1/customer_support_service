@@ -3,7 +3,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import pandas as pd
 import pickle
+import nltk
+import re
+from sumy.utils import get_stop_words as gsw1
+from stop_words import get_stop_words as gsw2
 
+import pickle
+from nltk.stem.porter import *
 
 
 from flask import Flask
@@ -15,15 +21,6 @@ import os
 import json
 from ast import literal_eval
 import traceback
-import re
-
-import nltk
-from sumy.utils import get_stop_words as gsw1
-from stop_words import get_stop_words as gsw2
-
-import pickle
-from nltk.stem.porter import *
-stemming = PorterStemmer()
 
 
 
@@ -95,6 +92,7 @@ def get_original_form(text):
         elif w in sw0 or re.match('\d+', w) is not None:
             continue
     new_list = re.split(r'\W+', new_s)
+    stemming = PorterStemmer()
     stemmed_list = [stemming.stem(word) for word in new_list]
     original_form = ' '.join(stemmed_list)
     return original_form
