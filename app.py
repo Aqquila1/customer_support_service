@@ -18,8 +18,6 @@ import traceback
 import re
 
 import nltk
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
 from sumy.utils import get_stop_words as gsw1
 from stop_words import get_stop_words as gsw2
 
