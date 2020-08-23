@@ -5,6 +5,8 @@ import pandas as pd
 import pickle
 
 import nltk
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
 import re
 from sumy.utils import get_stop_words as gsw1
 from stop_words import get_stop_words as gsw2
