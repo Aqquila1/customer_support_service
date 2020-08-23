@@ -121,7 +121,7 @@ def get_original_form(text):
 @application.route("/categoryPrediction" , methods=['GET', 'POST'])  
 def registration():
     resp = {'message':'ok'
-           ,'prediction': -1
+           ,'category': -1
            }
 
     try:
@@ -135,7 +135,7 @@ def registration():
         
         #напишите прогноз и верните его в ответе в параметре 'prediction'
         prediction = model.predict_proba(vec.transform([message]).toarray()).tolist()
-        resp['prediction'] = prediction
+        resp['category'] = prediction
 
         
     except Exception as e: 
