@@ -38,16 +38,10 @@ def hello():
 
 
 def cleaning_message(text):
-    text = re.sub('\[.*\]', '', text)
-    text = re.sub("\!", '', text)
-    text = re.sub("\'", '', text)
-    text = re.sub("[^A-Za-z0-9^,!.\/'+-=]", ' ', text)
-    text = re.sub("\s+", ' ', text)
     return text
 
 
 def get_original_form(text):
-
     return text
 
 # предикт категории
