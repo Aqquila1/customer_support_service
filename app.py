@@ -2,15 +2,15 @@ import lightgbm as lgb
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import pandas as pd
-
 import pickle
-import nltk
-import re
-from sumy.utils import get_stop_words as gsw1
-from stop_words import get_stop_words as gsw2
 
-import pickle
-from nltk.stem.porter import *
+# import nltk
+# import re
+# from sumy.utils import get_stop_words as gsw1
+# from stop_words import get_stop_words as gsw2
+#
+# import pickle
+# from nltk.stem.porter import *
 
 
 from flask import Flask
