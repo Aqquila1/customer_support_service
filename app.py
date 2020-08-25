@@ -14,8 +14,6 @@ import json
 from ast import literal_eval
 import traceback
 
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
 import nltk
 import re
 from sumy.utils import get_stop_words as gsw1
