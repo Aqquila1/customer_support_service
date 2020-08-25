@@ -121,7 +121,7 @@ def registration():
 
         # predicting category
         prediction = model.predict_proba(vec.transform([message]).toarray()).tolist()
-        resp['category'] = prediction
+        resp['prediction'] = prediction
 
     except Exception as e:
         print(e)
