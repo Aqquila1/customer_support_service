@@ -7,3 +7,17 @@ pandas==1.1.1
 lightgbm==2.3.1
 Flask==1.1.2
 scikit_learn==0.23.2
+httplib2
+datetime
+dj-database-url==0.4.1
+Django==1.11
+gunicorn==19.6.0
+psycopg2==2.8.1
+whitenoise==3.3.0
+asyncio 
+telepot
+python-telegram-bot
+telebot
+pyTelegramBotAPI
+matplotlib
+Flask-Cors==3.0.8
