@@ -3,8 +3,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import pandas as pd
 import pickle
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
+# nltk.download('stopwords')
+# nltk.download('averaged_perceptron_tagger')
 import nltk
 import re
 from sumy.utils import get_stop_words as gsw1
@@ -108,7 +108,7 @@ def registration():
         message = json_params['user_message']
 
         # if len(message) == 0:
-        #     resp['prediction'] = 'Your message is empty!'
+        #     resp['message'] = 'Your message is empty!'
         #     return response
 
         # converting message for model
