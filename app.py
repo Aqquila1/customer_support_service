@@ -107,15 +107,15 @@ def registration():
         json_params = json.loads(getData)
         message = json_params['user_message']
 
-        if len(message) == 0:
-            resp['message'] = 'Your message is empty!'
-            response = jsonify(resp)
-            return response
-
         # converting message for model
         message = message.lower()
         message = cleaning_message(message)
         message = get_original_form(message)
+
+        if len(message) == 0:
+            resp['message'] = 'Your message is empty!'
+            response = jsonify(resp)
+            return response
 
         # predicting category
         prediction = model.predict_proba(vec.transform([message]).toarray()).tolist()
