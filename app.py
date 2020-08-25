@@ -97,8 +97,8 @@ def get_original_form(text):
 # category prediction
 @application.route("/categoryPrediction", methods=['GET', 'POST'])
 def registration():
-    resp = {'message': 'ok'
-        , 'category': -1
+    resp = {'message': 'ok',
+            'category': -1
             }
 
     try:
@@ -107,9 +107,9 @@ def registration():
         json_params = json.loads(getData)
         message = json_params['user_message']
 
-        # if len(message) == 0:
-        #     resp['message'] = 'Your message is empty!'
-        #     return response
+        if len(message) == 0:
+            resp['message'] = 'Your message is empty!'
+            return response
 
         # converting message for model
         message = message.lower()
