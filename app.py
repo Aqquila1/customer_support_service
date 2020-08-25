@@ -108,12 +108,6 @@ def registration():
         json_params = json.loads(getData)
         message = json_params['user_message']
 
-        # checking if message is empty
-        if not message.strip():
-            resp['message'] = 'Your message is empty!'
-            response = jsonify(resp)
-            return response
-
         # preprocessing message for model
         message = message.lower()
         message = cleaning_message(message)
