@@ -107,6 +107,10 @@ def registration():
         json_params = json.loads(getData)
         message = json_params['user_message']
 
+        # if len(message) == 0:
+        #     resp['prediction'] = 'Your message is empty!'
+        #     return response
+
         # converting message for model
         message = message.lower()
         message = cleaning_message(message)
@@ -114,7 +118,7 @@ def registration():
         
         # predicting category
         prediction = model.predict_proba(vec.transform([message]).toarray()).tolist()
-        resp['prediction'] = prediction
+        resp['category'] = prediction
 
         
     except Exception as e: 
