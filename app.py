@@ -97,7 +97,8 @@ def get_original_form(text):
 # category prediction
 @application.route("/categoryPrediction", methods=['GET', 'POST'])
 def registration():
-    resp = {'message': 'ok',
+    resp = {
+            'message': 'ok',
             'category': -1
             }
 
@@ -107,20 +108,20 @@ def registration():
         json_params = json.loads(getData)
         message = json_params['user_message']
 
-        # converting message for model
-        message = message.lower()
-        message = cleaning_message(message)
-        message = get_original_form(message)
-
-        if len(message) == 0:
+        # checking if message is empty
+        if not message.strip():
             resp['message'] = 'Your message is empty!'
             response = jsonify(resp)
             return response
 
+        # preprocessing message for model
+        message = message.lower()
+        message = cleaning_message(message)
+        message = get_original_form(message)
+
         # predicting category
         prediction = model.predict_proba(vec.transform([message]).toarray()).tolist()
         resp['category'] = prediction
-
 
     except Exception as e:
         print(e)
