@@ -3,6 +3,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import pandas as pd
 import pickle
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+import nltk
+import re
+from sumy.utils import get_stop_words as gsw1
+from stop_words import get_stop_words as gsw2
+from nltk.stem.porter import *
 
 from flask import Flask
 from flask import request
@@ -14,24 +21,17 @@ import json
 from ast import literal_eval
 import traceback
 
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
-import nltk
-import re
-from sumy.utils import get_stop_words as gsw1
-from stop_words import get_stop_words as gsw2
-from nltk.stem.porter import *
 
 application = Flask(__name__)
 
 
-# loading models
+#загружаем модели из файлов
 vec = pickle.load(open("./models/tfidf.pickle", "rb"))
 with open("./models/mlp_model.pkl", 'rb') as file:
     model = pickle.load(file)
 
 
-# test output
+# тестовый вывод
 @application.route("/")  
 def hello():
     resp = {'message':"Hello World!"}
@@ -40,7 +40,7 @@ def hello():
     
     return response
 
-# cleaning message from garbage
+
 def cleaning_message(text):
     text = re.sub('\[.*\]', '', text)
     text = re.sub("\!", '', text)
@@ -49,7 +49,7 @@ def cleaning_message(text):
     text = re.sub("\s+", ' ', text)
     return text
 
-# getting rid of unnecessary words and stemming
+
 def get_original_form(text):
     try:
         words = re.split(' ', text)
@@ -94,7 +94,7 @@ def get_original_form(text):
     original_form = ' '.join(stemmed_list)
     return original_form
 
-# category prediction
+# предикт категории
 @application.route("/categoryPrediction" , methods=['GET', 'POST'])  
 def registration():
     resp = {'message':'ok'
@@ -102,23 +102,17 @@ def registration():
            }
 
     try:
-        # getting message from request
         getData = request.get_data()
         json_params = json.loads(getData)
+
         message = json_params['user_message']
-
-        # if len(message) == 0:
-        #     resp['message'] = 'Your message is empty!'
-        #     return response
-
-        # converting message for model
         message = message.lower()
         message = cleaning_message(message)
         message = get_original_form(message)
         
-        # predicting category
+        #напишите прогноз и верните его в ответе в параметре 'prediction'
         prediction = model.predict_proba(vec.transform([message]).toarray()).tolist()
-        resp['category'] = prediction
+        resp['prediction'] = prediction
 
         
     except Exception as e: 
