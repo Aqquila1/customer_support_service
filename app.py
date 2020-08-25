@@ -109,6 +109,7 @@ def registration():
 
         if len(message) == 0:
             resp['message'] = 'Your message is empty!'
+            response = jsonify(resp)
             return response
 
         # converting message for model
